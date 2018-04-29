@@ -53,32 +53,62 @@
                                     <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-user"></span>Inregistrare</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form name="register-form" action="register" method="POST" class="register-form">
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
-                                            <input type="text" class="form-control" placeholder="Numele" aria-describedby="basic-addon1" name="nume">
+                                    <form name="register-form" action="{{ route('register') }}" method="POST" class="register-form" role="form">
+                                        {{ csrf_field() }}
+                                        <div class="input-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                                            <span for="name" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
+                                            <input id="name" type="text" class="form-control" placeholder="Numele" aria-describedby="basic-addon1" name="name" value="{{ old('name') }}" required autofocus>
+                                            @if ($errors->has('name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="input-group {{ $errors->has('prenume') ? ' has-error' : '' }}">
+                                            <span for="prenume" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
+                                            <input id="prenume" type="text" class="form-control" placeholder="Prenumele" aria-describedby="basic-addon1" name="prenume" value="{{ old('prenume') }}" required autofocus>
+                                            @if ($errors->has('prenume'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('prenume') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="input-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                                            <span for="email" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
+                                            <input id="email" type="email" class="form-control" placeholder="E-mail" aria-describedby="basic-addon1" name="email" value="{{ old('email') }}" required>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="input-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                                            <span for="password" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span>
+                                            <input id="password" type="password" class="form-control" placeholder="Parola" aria-describedby="basic-addon1" name="password" required>
+                                            @if ($errors->has('password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></span>
-                                            <input type="text" class="form-control" placeholder="Prenumele" aria-describedby="basic-addon1" name="prenume">
+                                            <span for="password-confirm" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span></span>
+                                            <input id="password-confirm" type="password" class="form-control" placeholder="Confirma Parola" aria-describedby="basic-addon1" name="password_confirmation" required>
                                         </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
-                                            <input type="email" class="form-control" placeholder="E-mail" aria-describedby="basic-addon1" name="email">
+                                        <div class="input-group {{ $errors->has('virsta') ? ' has-error' : '' }}">
+                                            <span for="virsta" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
+                                            <input id="virsta" type="number"  class="form-control" min="1" max="120" placeholder="Virsta"name="virsta" required>
+                                            @if ($errors->has('virsta'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('virsta') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span>
-                                            <input type="password" class="form-control" placeholder="Parola" aria-describedby="basic-addon1" name="parola">
-                                        </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-calendar"></span></span>
-                                            <input type="number" name="quantity" class="form-control" min="1" max="120" placeholder="Virsta" name="virsta">
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary btn-reg">Register</button>
                                         </div>
                                     </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary btn-reg">Register</button>
                                 </div>
                             </div>
                           </div>
@@ -92,20 +122,31 @@
                                 <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-log-in"></span>Logare</h4>
                               </div>
                               <div class="modal-body">
-                                    <form name="register-form" action="register" method="POST" class="register-form">
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
-                                            <input type="email" class="form-control" placeholder="E-mail" name="email" aria-describedby="basic-addon1">
+                                    <form name="register-form" action="{{ route('login') }}" method="POST" class="register-form" role="form">
+                                    {{ csrf_field() }}
+                                        <div class="input-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                                            <span for="email" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-envelope"></span></span>
+                                            <input type="email" class="form-control" placeholder="E-mail" name="email" aria-describedby="basic-addon1" id="email" value="{{ old('email') }}" required autofocus>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span>
-                                            <input type="password" class="form-control" placeholder="Parola" name="parola" aria-describedby="basic-addon1">
+                                        <div class="input-group {{ $errors->has('password') ? ' has-error' : '' }}">
+                                            <span for="password" class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></span>
+                                            <input type="password" class="form-control" placeholder="Parola" name="password" aria-describedby="basic-addon1" id="password" required>
+                                            @if ($errors->has('password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary btn-reg">Logare</button>
                                         </div>
                                     </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary btn-reg">Logare</button>
                               </div>
                             </div>
                           </div>

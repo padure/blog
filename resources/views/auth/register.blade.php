@@ -23,6 +23,19 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('prenume') ? ' has-error' : '' }}">
+                            <label for="prenume" class="col-md-4 control-label">Prenume</label>
+
+                            <div class="col-md-6">
+                                <input id="prenume" type="text" class="form-control" name="prenume" value="{{ old('prenume') }}" required autofocus>
+
+                                @if ($errors->has('prenume'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('prenume') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -57,6 +70,20 @@
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('virsta') ? ' has-error' : '' }}">
+                            <label for="virsta" class="col-md-4 control-label">Virsta</label>
+
+                            <div class="col-md-6">
+                                <input id="virsta" type="number" class="form-control" name="virsta" required>
+
+                                @if ($errors->has('virsta'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('virsta') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
 
